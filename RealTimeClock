@@ -1,0 +1,35 @@
+#include <iostream>
+#include <ctime>
+#include <unistd.h>
+using namespace std;
+
+struct Time {
+    int hour;
+    int minute;
+    int second;
+};
+
+int main() {
+    while (true) {
+        // Get the current time
+        time_t t = time(NULL);
+        tm* timePtr = localtime(&t);
+        
+        // Extract the hour, minute, and second
+        int hour = timePtr->tm_hour;
+        int minute = timePtr->tm_min;
+        int second = timePtr->tm_sec;
+        
+        // Update the time struct
+        Time currentTime = {hour, minute, second};
+        
+        // Clear the console and print the time
+        system("clear");
+        cout << "Current Time: " << currentTime.hour << ":" << currentTime.minute << ":" << currentTime.second << endl;
+        
+        // Wait for 1 second before updating again
+        sleep(1);
+    }
+    
+    return 0;
+}
